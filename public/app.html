@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P</title>
+</head>
+
+<body>
+    <h1 class="welcome"></h1>
+    <form class="form">
+        <input type="file" accept="image/*" onchange="loadImage(event)">
+        <p><img id="output" width="200" /></p>
+    </form>
+
+    <script>
+        let loadImage = (event) => {
+            let image = $('#output');
+            image.attr("src", URL.createObjectURL(event.target.files[0]));
+            $
+        };
+
+        (function() {
+
+            /**
+             * Obtains parameters from the hash of the URL
+             * @return Object
+             */
+            function getHashParams() {
+                let hashParams = {};
+                let e, r = /([^&;=]+)=?([^&;]*)/g,
+                    q = window.location.hash.substring(1);
+                console.log(q)
+                while (e = r.exec(q)) {
+                    hashParams[e[1]] = decodeURIComponent(e[2]);
+                }
+                // console.log(JSON.parse(JSON.stringify(hashParams)))
+                return hashParams;
+            }
+
+            const params = getHashParams();
+            // console.log("params:" + JSON.stringify(params))
+            let access_token = params.access_token,
+                refresh_token = params.refresh_token,
+                error = params.error;
+            console.log("access token:" + access_token)
+
+            // if (error) {
+            //     alert('There was an error during the authentication');
+            //     location.replace("/index.html")
+            // } else {
+
+            //     //do stuff with params -wasp
+            // if (access_token) {
+            //     console.log("acsess token exists!");
+            //     // $.ajax({
+            //     //     url: 'https://api.spotify.com/v1/me',
+            //     //     headers: {
+            //     //         'Authorization': 'Bearer ' + access_token
+            //     //     },
+            //     //     success: (response) => {
+            //     //         console.log(response);
+            //     //     }
+            //     // });
+            // } else {
+            //     // show login screen again if no access code  -wasp
+            //     console.log("no acsess token");
+            //     // console.log(params)
+            //     // location.replace("/index.html")
+            // }
+
+            // document.getElementById('submit').addEventListener('click', () => {
+            //     $.ajax({
+            //         url: '/refresh_token',
+            //         data: {
+            //             'refresh_token': refresh_token
+            //         }
+            //     }).done(function(data) {
+            //         access_token = data.access_token;
+            //         oauthPlaceholder.innerHTML = oauthTemplate({
+            //             access_token: access_token,
+            //             refresh_token: refresh_token
+            //         });
+            //     });
+            //     // }, false);
+            // }
+        })();
+    </script>
+</body>
+
+</html>
