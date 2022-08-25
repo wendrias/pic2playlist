@@ -121,6 +121,7 @@
 
                 <button type="submit" id="button" name="drake" value="submit">Make my playlist!</button>
                 <div id="done" style="display: none"> All done! Check out your most recent playlist!</div>
+                <div id="error" style="display: none;">An error occurred...... NOOOOO!!!! :(</div>
             </div>
         </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
@@ -259,13 +260,22 @@
                                             },
                                             error: function(err) {
                                                 console.log(err.responseText)
+                                                $("#loggedin").hide()
+                                                $("#error").show()
                                             }
                                         })
                                     },
                                     error: function(err) {
                                         console.log(err.responseText)
+                                        $("#loggedin").hide()
+                                        $("#error").show()
                                     }
                                 })
+                            },
+                            error: function(err) {
+                                console.log(err.responseText)
+                                $("#loggedin").hide()
+                                $("#error").show()
                             }
                         })
                     }, false);

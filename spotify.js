@@ -250,19 +250,20 @@ app.get('/search', (req, res) => {
                 } else {
                     let randIndex = randNum(0, results.length - 1)
                 }
-
-                if (results.length > 0 && searchTerms.terms[i].value.split(" ") == 1) {
-                    if (results[0].name.toLowerCase().split(" ").includes(searchTerms.terms[i].value.toLowerCase())) { //possible imporvement: random index instead of the first one
-                        track = { name: results[0].name, id: results[0].id };
-                    } else if (results.length > 1 && results[1].name.toLowerCase().split(" ").includes(searchTerms.terms[i].value.toLowerCase())) {
-                        track = { name: results[1].name, id: results[1].id };
-                    } else if (results.length > 2 && results[2].name.toLowerCase().split(" ").includes(searchTerms.terms[i].value.toLowerCase())) {
-                        track = { name: results[2].name, id: results[2].id };
+                if (results.length > 0) {
+                    if (results.length > 0 && searchTerms.terms[i].value.split(" ") == 1) {
+                        if (results[0].name.toLowerCase().split(" ").includes(searchTerms.terms[i].value.toLowerCase())) { //possible imporvement: random index instead of the first one
+                            track = { name: results[0].name, id: results[0].id };
+                        } else if (results.length > 1 && results[1].name.toLowerCase().split(" ").includes(searchTerms.terms[i].value.toLowerCase())) {
+                            track = { name: results[1].name, id: results[1].id };
+                        } else if (results.length > 2 && results[2].name.toLowerCase().split(" ").includes(searchTerms.terms[i].value.toLowerCase())) {
+                            track = { name: results[2].name, id: results[2].id };
+                        } else {
+                            track = { name: results[0].name, id: results[0].id };
+                        }
                     } else {
                         track = { name: results[0].name, id: results[0].id };
                     }
-                } else {
-                    track = { name: results[0].name, id: results[0].id };
                 }
 
                 // console.log("track object:" + JSON.stringify(track))
