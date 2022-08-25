@@ -72,6 +72,9 @@ app.post('/saveImage', (req, res) => {
     imgPath = __dirname + '/img/' + fileName
     setPath(imgPath)
 
+    imgPath = __dirname + '/img/' + fileName
+    setPath(imgPath)
+
     image.mv(imgPath, (error) => {
         if (error) {
             console.error(error)
