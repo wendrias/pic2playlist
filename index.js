@@ -4,6 +4,7 @@ const vision = require('@google-cloud/vision');
 const colorTool = require('./resources/color-name-tool')
 
 async function getImageData(imgFile) {
+    console.log("image file in data function: " + imgFile)
     let searchTerms = [];
     let title = "";
     // // Imports the Google Cloud client library

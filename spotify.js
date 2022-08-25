@@ -69,10 +69,8 @@ let imgPath;
 app.post('/saveImage', (req, res) => {
     const fileName = req.files.myFile.name
     const image = req.files.myFile
-    imgPath = process.env.PWD + '/img/' + fileName
-    setPath(imgPath)
-
     imgPath = __dirname + '/img/' + fileName
+    console.log("the image path" + imgPath)
     setPath(imgPath)
 
     image.mv(imgPath, (error) => {
