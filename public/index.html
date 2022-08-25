@@ -129,6 +129,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             let loadImage = (event) => {
+
                 let image = $('#output');
                 image.attr("src", URL.createObjectURL(event.target.files[0]));
                 console.log($('#output').attr('src')); //pass this into google vision on button click
