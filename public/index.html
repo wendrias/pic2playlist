@@ -62,7 +62,6 @@
         
         #loggedin {
             height: 80vh;
-            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -95,7 +94,7 @@
                 <p class="tiny">Powered by Spotify and Google Cloud. By using this tool you agree to the proccessing of your image by Google Cloud Vision.</p>
             </div>
 
-            <div id="loggedin">
+            <div id="loggedin" style="display: none;">
                 <h1 class="welcome"></h1>
                 <p>Upload an image below, then click "Make my playlist"</p>
                 <br>
@@ -195,7 +194,7 @@
                                     // userProfilePlaceholder.innerHTML = userProfileTemplate(response);
                                     $('.user-id').text(response.id)
                                     $('#login').hide();
-                                    $('#loggedin').show();
+                                    $('#loggedin').attr("style", "display: flex;")
                                     $('.welcome').text("Welcome," + response.display_name);
                                 }
                             });
