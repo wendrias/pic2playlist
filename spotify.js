@@ -712,5 +712,4 @@ function addJointTrackQuery(terms) {
 
 
 
-console.log('Listening on' + port);
 app.listen(port);
