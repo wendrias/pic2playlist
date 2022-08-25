@@ -90,6 +90,7 @@ app.post('/saveImage', (req, res) => {
     })
 })
 
+
 //for image upload path
 function setPath(newPath) {
     imgPath = newPath;
