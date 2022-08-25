@@ -228,8 +228,6 @@ app.get('/search', (req, res) => {
 
     // // test(userId, access_token);
     // res.json({ test: "working" })
-    imgPath = __dirname + '/images/' + fileName
-    setPath(imgPath)
 
     console.log("accessing image path: " + imgPath)
 
