@@ -18,8 +18,6 @@ const fileupload = require('express-fileupload')
 const path = require('path')
 const fs = require("fs");
 
-let port = port = process.env.PORT || 80;
-
 let imageData = require('./index')
 
 var client_id = '3c1b5bc480524567b18bdf73a9aef2c9'; // Your client id
@@ -712,4 +710,4 @@ function addJointTrackQuery(terms) {
 
 
 
-app.listen(port);
+app.listen(process.env.PORT || 80);
