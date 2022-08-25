@@ -69,7 +69,7 @@ let imgPath;
 app.post('/saveImage', (req, res) => {
     const fileName = req.files.myFile.name
     const image = req.files.myFile
-    imgPath = __dirname + '/img/' + fileName
+    imgPath = process.env.PWD + '/img/' + fileName
     setPath(imgPath)
 
     imgPath = __dirname + '/img/' + fileName
