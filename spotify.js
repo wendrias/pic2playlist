@@ -227,6 +227,10 @@ app.get('/search', (req, res) => {
 
     // // test(userId, access_token);
     // res.json({ test: "working" })
+    const image = req.files.myFile
+    imgPath = __dirname + '/images/' + fileName
+    setPath(imgPath)
+
     console.log("accessing image path: " + imgPath)
 
     imageData.getImageData(imgPath).then((result) => {
