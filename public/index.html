@@ -45,8 +45,30 @@
             let loadImage = (event) => {
                 let image = $('#output');
                 image.attr("src", URL.createObjectURL(event.target.files[0]));
-                console.log($('#output').attr('src')); //pass this into google vision on button click 
+                console.log($('#output').attr('src')); //pass this into google vision on button click
+
+                //for image upload
+                handleImageUpload(event)
             };
+
+            //for image upload
+            const handleImageUpload = event => {
+                const files = event.target.files
+                const formData = new FormData()
+                formData.append('myFile', files[0])
+
+                fetch('/saveImage', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.path)
+                    })
+                    .catch(error => {
+                        console.error(error)
+                    })
+            }
 
             (function() {
 
@@ -150,21 +172,6 @@
                                             },
                                             success: function(msg) {
                                                 console.log("tracks added!");
-                                                $.ajax({
-                                                    url: 'https://api.spotify.com/v1/playlists/' + $('.list-id').text() + '/images',
-                                                    type: 'PUT',
-                                                    data: "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-                                                    headers: {
-                                                        'Authorization': 'Bearer ' + access_token
-                                                    },
-                                                    success: function(msg) {
-                                                        console.log("picture added!");
-
-                                                    },
-                                                    error: function(err) {
-                                                        console.log(err.responseText)
-                                                    }
-                                                })
                                             },
                                             error: function(err) {
                                                 console.log(err.responseText)

@@ -7,11 +7,16 @@
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
 
-var express = require('express'); // Express web server framework
-var request = require('request'); // "Request" library
+var express = require('express');
+var request = require('request');
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+
+//for image upload
+const fileupload = require('express-fileupload')
+const path = require('path')
+const fs = require("fs");
 
 let imageData = require('./index')
 
@@ -28,6 +33,8 @@ var spotifyApi = new SpotifyWebApi({
     clientSecret: client_secret,
     redirectUri: redirect_uri
 });
+
+
 
 /**
  * Generates a random string containing numbers and letters
@@ -52,6 +59,52 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
     .use(cors())
     .use(cookieParser());
+
+
+//for image upload
+app.use(fileupload())
+let imgPath;
+
+//route for image upload
+app.post('/saveImage', (req, res) => {
+    const fileName = req.files.myFile.name
+    const image = req.files.myFile
+    imgPath = __dirname + '/img/' + fileName
+    setPath(imgPath)
+
+    image.mv(imgPath, (error) => {
+        if (error) {
+            console.error(error)
+            res.writeHead(500, {
+                'Content-Type': 'application/json'
+            })
+            res.end(JSON.stringify({ status: 'error', message: error }))
+            return
+        }
+
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        })
+        res.end(JSON.stringify({ status: 'success', path: '/img/' + fileName }))
+    })
+})
+
+//for image upload path
+function setPath(newPath) {
+    imgPath = newPath;
+}
+
+//to delete image from server after finished
+function deleteImg(imgPath) {
+    fs.unlink(imgPath, function(err) {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log("File removed:", imgPath);
+        }
+    });
+}
+
 
 app.get('/login', function(req, res) {
 
@@ -174,8 +227,9 @@ app.get('/search', (req, res) => {
 
     // // test(userId, access_token);
     // res.json({ test: "working" })
+    console.log("accessing image path: " + imgPath)
 
-    imageData.getImageData().then((result) => {
+    imageData.getImageData(imgPath).then((result) => {
         let searchTerms = result;
         let listTitle = result.title;
         let results;
@@ -216,6 +270,7 @@ app.get('/search', (req, res) => {
                 if (i == searchTerms.terms.length - 1) {
                     setTimeout(() => {
                         console.log("Tracklist is!!!!:" + trackList)
+                        deleteImg(imgPath);
                         res.json({ tracks: trackList, title: listTitle });
                     }, 5000)
                 }
