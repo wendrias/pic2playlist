@@ -22,7 +22,7 @@ let imageData = require('./index')
 
 var client_id = '3c1b5bc480524567b18bdf73a9aef2c9'; // Your client id
 var client_secret = '0160139153364df9810fb36ce5d0ab70'; // Your secret
-var redirect_uri = 'http://localhost:5000/callback'; // Your redirect uri
+var redirect_uri = 'https://pic2playlist.herokuapp.com/callback'; // Your redirect uri
 
 var SpotifyWebApi = require('spotify-web-api-node');
 const { resourceLimits } = require('worker_threads');
